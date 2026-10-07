@@ -1,6 +1,6 @@
 def main():
     a = float(input("Введите первое число: "))
-    op = input("Введите операцию (+,-,*,/): ")
+    op = input("Введите операцию (+,-,*): ")
     b = float(input("Введите второе число: "))
 
     if op == '+':
@@ -9,8 +9,6 @@ def main():
         result = a - b
     elif op == '*':
         result = a * b
-    elif op == '/':
-        result = a / b
     else:
         result = None
 
