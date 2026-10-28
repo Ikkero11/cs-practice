@@ -18,7 +18,15 @@ def parse_record(line: str) -> dict:
     return {'city': city, 'temperature': temp, 'date': date}
 
 def read_valid(lines: list[str]) -> list[dict]:
-    pass
+    valid = []
+    for line in lines:
+        if not line.strip():
+            continue
+        try:
+            valid.append(parse_record(line))
+        except ValueError:
+            pass
+    return valid
 
 def average_by_city(records: list[dict]) -> dict:
     pass
