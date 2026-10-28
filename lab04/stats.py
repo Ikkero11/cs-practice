@@ -29,7 +29,18 @@ def read_valid(lines: list[str]) -> list[dict]:
     return valid
 
 def average_by_city(records: list[dict]) -> dict:
-    pass
+    totals = {}
+    counts = {}
+    for r in records:
+        c = r['city']
+        t = r['temperature']
+        totals[c] = totals.get(c, 0) + t
+        counts[c] = counts.get(c, 0) + 1
+    return {c: round(totals[c] / counts[c], 1) for c in totals}
 
 def warmest_city(records: list[dict]) -> str:
-    pass
+    avgs = average_by_city(records)
+    if not avgs:
+        return ""
+    # Сортировка: по температуре (убывание), при равенстве - по имени (возрастание)
+    return sorted(avgs.items(), key=lambda x: (-x[1], x[0]))[0][0]
