@@ -1,8 +1,6 @@
-VALID_LEVELS = {'DEBUG', 'INFO', 'WARNING', 'ERROR'}
-
 def parse_event(line):
     parts = line.strip().split(maxsplit=2)
-    if len(parts) < 3 or parts[1] not in VALID_LEVELS:
+    if len(parts) < 3 or parts[1] not in ('DEBUG', 'INFO', 'WARNING', 'ERROR'):
         raise ValueError
     return {'time': parts[0], 'level': parts[1], 'message': parts[2]}
 
@@ -31,11 +29,12 @@ def top_errors(lines, n):
     return [[msg, count] for msg, count in sorted_errs[:n]]
 
 def format_report(counts, errors):
-    lines = ['Отчёт по журналу']
+    # ИСПРАВЛЕНИЕ: Добавлена пустая строка "" после заголовка
+    lines = ["Отчёт по журналу", ""]
     for lvl in sorted(counts.keys()):
-        lines.append(f'{lvl}: {counts[lvl]}')
-    lines.append('')
-    lines.append('Частые ошибки:')
+        lines.append(f"{lvl}: {counts[lvl]}")
+    lines.append("")
+    lines.append("Частые ошибки:")
     for msg, count in errors:
-        lines.append(f'- {msg} - {count}')
-    return '\n'.join(lines) + '\n'
+        lines.append(f"- {msg} - {count}")
+    return "\n".join(lines) + "\n"
